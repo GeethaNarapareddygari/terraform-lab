@@ -1,41 +1,42 @@
-name: Terraform CI Checks
+name: "Terraform Automation and Validation"
 
 on:
   push:
     branches:
       - main
-      - master
+  pull_request:
+    branches:
+      - main
 
 jobs:
   terraform:
-    name: Terraform Validation
+    name: "Check and Validate"
     runs-on: ubuntu-latest
+    
+    # We set the working directory to assignment4 
+    # since that's where your provider/module logic is.
+    defaults:
+      run:
+        working-directory: ./assignment4
 
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      # Step 2: Setup Terraform
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
 
-      # Step 3: Initialize Terraform
-      - name: Terraform Init
+      - name: Initialize Terraform
         run: terraform init
-        working-directory: ./assignment5
 
-      # Step 4: Format Check
-      - name: Terraform Format
+      - name: Terraform Format Check
+        # This checks if your code is indented correctly
         run: terraform fmt -check
-        working-directory: ./assignment5
 
-      # Step 5: Validate Configuration
       - name: Terraform Validate
+        # This checks for syntax errors (missing brackets, typos)
         run: terraform validate
-        working-directory: ./assignment5
 
-      # Step 6: Terraform Plan
       - name: Terraform Plan
-        run: terraform plan
-        working-directory: ./assignment5
+        # This simulates the infrastructure build
+        run: terraform plan -no-color
