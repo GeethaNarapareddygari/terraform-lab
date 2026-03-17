@@ -1,9 +1,6 @@
-resource "local_file" "dev" {
-  content  = "Development environment"
-  filename = "${path.module}/dev.txt"
-}
+provider "local" {}
 
-resource "local_file" "prod" {
-  content  = "Production environment"
-  filename = "${path.module}/prod.txt"
+resource "local_file" "file" {
+  filename = var.filename
+  content  = var.message
 }
