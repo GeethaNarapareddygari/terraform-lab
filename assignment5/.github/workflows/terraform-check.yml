@@ -23,15 +23,19 @@ jobs:
       # Step 3: Initialize Terraform
       - name: Terraform Init
         run: terraform init
+        working-directory: ./assignment5
 
       # Step 4: Format Check
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: ./assignment5
 
       # Step 5: Validate Configuration
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./assignment5
 
       # Step 6: Terraform Plan
       - name: Terraform Plan
         run: terraform plan
+        working-directory: ./assignment5
